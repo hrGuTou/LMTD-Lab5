@@ -1,6 +1,5 @@
 import boto3
 import uuid
-import glob
 
 
 class AWSManager:
@@ -14,6 +13,12 @@ class AWSManager:
         for bucket in self.s3.buckets.all():
             print(bucket.name)
 
+    def listBucketFile(self, bucketName):
+        bucket = self.s3.Bucket(bucketName)
+        files = bucket.objects.all()
+        for file in files:
+            print(file.key)
+
     def upload(self, bucketName, fileName):
         try:
             with open(fileName, 'r') as f:
@@ -23,3 +28,11 @@ class AWSManager:
             print(e)
         else:
             print("File uploaded")
+
+#DEBUG CODE
+"""
+if __name__ == "__main__":
+    app = AWSManager()
+    app.listBucket()
+    app.listBucketFile(input("Bucket Name: "))
+"""
