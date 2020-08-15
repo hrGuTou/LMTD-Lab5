@@ -29,10 +29,19 @@ class AWSManager:
         else:
             print("File uploaded")
 
+    def download(self,bucketName, fileName):
+        try:
+            self.s3.Bucket(bucketName).download_file(fileName, "downloaded.html")
+        except Exception as e:
+            print(e)
+
+
+
+
 #DEBUG CODE
-"""
+
 if __name__ == "__main__":
     app = AWSManager()
     app.listBucket()
     app.listBucketFile(input("Bucket Name: "))
-"""
+    app.download("lmtd-class", input("File Name: "))
